@@ -10,7 +10,12 @@ const Home = () => {
         <div>
             <Navbar />
             <Carousel />
-            <Card />
+            <div className="m-3 d-flex gap-4">
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+            </div>
             <Footer />
         </div>
     )
