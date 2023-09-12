@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb+srv://gofood:basic12345@cluster0.fftdiyv.mongodb.net/'
+require('dotenv').config();
+const mongoURI = process.env.MONGO_URI
 
 const mongoDB = () => {
 
