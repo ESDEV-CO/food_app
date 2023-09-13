@@ -2,8 +2,10 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/User')
 const { body, validationResult } = require('express-validator');
-
+const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+require('dotenv').config();
+const secKey = process.env.SECRET_KEY
 
 router.post("/signup",
     body('email').isEmail(),
@@ -43,10 +45,17 @@ router.post("/login",
             if (!userData) {
                 return res.status(400).json({ errors: "Data did'nt match the Database" })
             }
-            if (req.body.password !== userData.password) {
+            const pswCompare = await bcrypt.compare(req.body.password, userData.password)
+            if (!pswCompare) {
                 return res.status(400).json({ errors: "Data did'nt match the Database" })
             }
-            return res.json({ success: true })
+            const data = {
+                user: {
+                    id: userData.id
+                }
+            }
+            const authToken = jwt.sign(data, secKey)
+            return res.json({ success: true, authToken: authToken })
 
         } catch (error) {
             console.log(error);
