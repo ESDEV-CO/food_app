@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import Badge from 'react-bootstrap/Badge'
+import Model from '../Modal'
+import Cart from '../screens/Cart'
+import { useCart } from './ContextReducer'
+
 
 const Navbar = () => {
+    let data = useCart();
+    const [cartView, setCartView] = useState(false)
     const navigate = useNavigate()
     const handleLogOut = () => {
         localStorage.removeItem("authToken");
         navigate('/login')
     }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-success">
             <div className="container-fluid">
@@ -34,7 +42,11 @@ const Navbar = () => {
                         </div>
                         :
                         <div>
-                            <div className='btn bg-white text-success mx-2'>My Cart</div>
+                            <div className='btn bg-white text-success mx-2' onClick={() => setCartView(true)}>
+                                My Cart {" "}
+                                <Badge pill bg='danger'>{data.length === 0 ? "" : data.length}</Badge>
+                            </div>
+                            {cartView ? <Model onClose={() => setCartView(false)} ><Cart /></Model> : ''}
                             <div className='btn bg-white text-danger mx-2' onClick={handleLogOut}>Logout</div>
                         </div>
                     }
