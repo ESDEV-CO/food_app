@@ -6,7 +6,7 @@ const Card = (props) => {
 
     return (
         <div className="card mt-3 " style={{ "width": " 18rem", objectFit: 'contain !important' }}>
-            <img src={props.imgSrc} className="card-img-top" alt="..." />
+            <img src={props.imgSrc} className="card-img-top" alt="..." style={{ height: " 190px", objectFit: 'contain !important' }} />
             <div className="card-body">
                 <h5 className="card-title">{props.foodName}</h5>
                 <p className="card-text">{props.description}</p>
