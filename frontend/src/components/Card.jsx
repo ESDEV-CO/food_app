@@ -17,7 +17,7 @@ const Card = (props) => {
                 break;
             }
         }
-        if (food != []) {
+        if (food.length !== 0) {
             if (food.size === size) {
                 await dispatch({ type: "UPDATE", id: props.foodItem._id, price: finalPrice, qty: qty })
                 return
@@ -30,7 +30,6 @@ const Card = (props) => {
             return
         }
         await dispatch({ type: 'ADD', id: props.foodItem._id, name: props.foodItem.name, price: finalPrice, qty: qty, size: size })
-        await console.log(data);
     }
     let finalPrice = qty * parseInt(options[size]);
 
