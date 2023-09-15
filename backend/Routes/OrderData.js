@@ -9,11 +9,11 @@ router.post('/orderData', async (req, res) => {
 
     //if email not exisitng in db then create: else: InsertMany()
     let eId = await Order.findOne({ 'email': req.body.email })
-    console.log(eId)
+    // console.log(eId)
     if (eId === null) {
         try {
-            console.log(data)
-            console.log("1231242343242354", req.body.email)
+            // console.log(data)
+            // console.log("1231242343242354", req.body.email)
             await Order.create({
                 email: req.body.email,
                 order_data: [data]
