@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUp = () => {
     const [credential, setCredential] = useState({ name: '', email: '', password: '', geolocation: '' })
@@ -9,7 +11,6 @@ const SignUp = () => {
     const onChangeData = (e) => {
         setCredential({ ...credential, [e.target.name]: e.target.value })
     }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await fetch("http://localhost:5000/api/signup", {
@@ -24,7 +25,27 @@ const SignUp = () => {
         const json = await response.json()
         console.log(json);
         if (!json.success) {
-            alert('Enter Valid Credentials')
+            toast.error('Enter Valid Credentials!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        } else {
+            toast.success(' Success!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     }
     return (
@@ -54,6 +75,7 @@ const SignUp = () => {
                 </form>
             </div>
             <Footer />
+            <ToastContainer />
         </>
     )
 }
