@@ -19,6 +19,6 @@ app.use('/api', require("./Routes/UserInfo"))
 app.use('/api', require("./Routes/FoodItemRoute"))
 app.use('/api', require("./Routes/OrderData"))
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
     console.log(`Example app listening on port ${port}`)
 })
