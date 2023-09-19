@@ -1,11 +1,14 @@
 import React from 'react'
 import { useCart, useDispatchCart } from '../components/ContextReducer';
 import { AiOutlineDelete } from 'react-icons/ai'
+import { useNavigate } from 'react-router';
 
 
 const Cart = () => {
     let data = useCart();
     let dispatch = useDispatchCart();
+    let navigate = useNavigate()
+
     if (data.length === 0) {
         return (
             <div>
@@ -30,12 +33,16 @@ const Cart = () => {
             })
         });
         console.log("JSON RESPONSE:::::", response.status)
+        console.log("JSON  Data:::::", response)
         if (response.status === 200) {
             dispatch({ type: "DROP" })
+            navigate('/checkout')
         }
     }
 
     let totalPrice = data.reduce((total, food) => total + food.price, 0)
+    localStorage.setItem("total-price", totalPrice)
+
     return (
         <div>
             <div className="container m-auto mt-5 table-responsive table-responsive-sm table-responsive-md">
