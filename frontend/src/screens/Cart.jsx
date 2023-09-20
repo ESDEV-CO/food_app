@@ -70,9 +70,9 @@ const Cart = () => {
                         ))}
                     </tbody>
                 </table>
-                <div><h1>Total Price: {totalPrice}</h1></div>
-                <div>
-                    <button className="btn bg-success text-white mt-5" onClick={handleCheckOut}>Check Out</button>
+                <div className='d-flex justify-content-between'>
+                    <h3>Total Price: {totalPrice}</h3>
+                    <button className="btn bg-success text-white mt-1" onClick={handleCheckOut}>Check Out</button>
                 </div>
             </div>
         </div>

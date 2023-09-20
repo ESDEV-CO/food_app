@@ -37,12 +37,12 @@ const Card = (props) => {
         setSize(priceRef.current.value)
     }, [])
     return (
-        <div className="card mt-3 " style={{ "width": " 18rem", objectFit: 'contain !important' }}>
-            <img src={props.foodItem.img} className="card-img-top" alt="..." style={{ height: " 190px", objectFit: 'contain !important' }} />
+        <div className="card mt-3 object-fit-cover ">
+            <img src={props.foodItem.img} className="card-img-top object-fit-cover" alt="..." style={{ height: " 190px" }} />
             <div className="card-body">
                 <h5 className="card-title">{props.foodItem.name}</h5>
-                <p className="card-text">{props.foodItem.description}</p>
-                <div className="container w-100  ">
+                <p className="card-text custom-line-clamp">{props.foodItem.description}</p>
+                <div className=" w-100  ">
                     <select className='m-2 h-100  bg-success text-white rounded ' onChange={(e) => setQty(e.target.value)}>
                         {Array.from(Array(6), (e, i) => {
                             return (

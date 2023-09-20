@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { loadStripe } from '@stripe/stripe-js'
 
 
 const CheckOut = () => {
@@ -27,6 +28,9 @@ const CheckOut = () => {
             [name]: value,
         });
     };
+    const makePayment = async () => {
+        const stripe = await loadStripe('pk_test_51NsK7LI97mld8Ot2sexNH1X7Db8ow2clm9UyAw1VDTUO7VLNhxas5EKkSQiP8WGJpKJYm9QZsoiIDYeK9TDmSK1O00C6nutpu4')
+    }
 
     return (
         <div>
@@ -169,14 +173,8 @@ const CheckOut = () => {
                                 </div>
                             </div>
                             <hr className="my-4" />
-                            {/* <form onSubmit={handleSubmit} className="card p-2">
-                                    <div className="input-group">
-                                        <input type="text" className="form-control" placeholder="Promo code" onChange={handleChange} />
-                                        <button type="submit" className="btn btn-success">Redeem</button>
-                                    </div>
-                                </form> */}
 
-                            <button className="w-100 btn btn-success btn-lg mt-3 " type="submit">Continue to Pay</button>
+                            <button className="w-100 btn btn-success btn-lg mt-3 " type="submit" onClick={makePayment}>Continue to Pay</button>
                         </form>
                     </div>
                 </div>
