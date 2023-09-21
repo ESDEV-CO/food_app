@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useCart, useDispatchCart } from './ContextReducer';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Card = (props) => {
     let dispatch = useDispatchCart();
     let data = useCart();
@@ -30,6 +33,16 @@ const Card = (props) => {
             return
         }
         await dispatch({ type: 'ADD', id: props.foodItem._id, name: props.foodItem.name, price: finalPrice, qty: qty, size: size })
+        toast.success('Added to cart!', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            progress: 0,
+            theme: "light",
+        });
     }
     let finalPrice = qty * parseInt(options[size]);
 
@@ -60,6 +73,7 @@ const Card = (props) => {
                     <button className="btn btn-success justify-center ms-2" onClick={handleAddToCart}>Add to Cart</button>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 }
