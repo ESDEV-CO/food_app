@@ -9,6 +9,8 @@ import SignUp from './screens/SignUp';
 import { CartProvider } from './components/ContextReducer';
 import MyOrder from './screens/MyOrder';
 import CheckOut from './screens/CheckOut';
+import Success from './components/Success';
+import Cancel from './components/Cancel';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/myorder" element={<MyOrder />} />
           <Route path="/checkout" element={<CheckOut />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/cancel" element={<Cancel />} />
         </Routes>
       </Router>
     </CartProvider>

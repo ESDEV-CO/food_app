@@ -16,6 +16,7 @@ const CheckOut = () => {
         paymentMethod: 'credit',
     });
     console.log(formData);
+    let totalPrice = localStorage.getItem("total-price")
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -29,8 +30,39 @@ const CheckOut = () => {
         });
     };
     const makePayment = async () => {
-        const stripe = await loadStripe('pk_test_51NsK7LI97mld8Ot2sexNH1X7Db8ow2clm9UyAw1VDTUO7VLNhxas5EKkSQiP8WGJpKJYm9QZsoiIDYeK9TDmSK1O00C6nutpu4')
-    }
+        const stripe = await loadStripe("pk_test_51NsK7LI97mld8Ot2sexNH1X7Db8ow2clm9UyAw1VDTUO7VLNhxas5EKkSQiP8WGJpKJYm9QZsoiIDYeK9TDmSK1O00C6nutpu4");
+
+        const response = await fetch('http://localhost:5000/api/checkout-session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                totalPricePay: totalPrice
+            })
+        });
+
+        if (response.status === 200) {
+            const session = await response.json();
+
+            // console.log("session ::", session)
+
+
+            // Now you can access the session data
+            const result = await stripe.redirectToCheckout({
+                sessionId: session.id,
+            });
+
+            if (result.error) {
+                console.log(result.error);
+            }
+        } else {
+            // Handle non-200 status codes, e.g., display an error message
+            console.error('API request failed with status:', response.status);
+        }
+
+    };
+
 
     return (
         <div>
@@ -40,7 +72,7 @@ const CheckOut = () => {
                     <div className="col-md-5 col-lg-4 order-md-last">
                         <h4 className="d-flex justify-content-between align-items-center mb-3">
                             <span className="text-success">Your Order</span>
-                            <span className="badge bg-success ">{`Rs ${localStorage.getItem("total-price")}/-`}</span>
+                            <span className="badge bg-success ">{`Rs ${totalPrice}/-`}</span>
                         </h4>
 
                     </div>
