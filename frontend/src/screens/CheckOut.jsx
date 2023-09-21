@@ -155,9 +155,9 @@ const CheckOut = () => {
                                 <input type="checkbox" className="form-check-input" id="save-info" />
                                 <label className="form-check-label" htmlFor="save-info">Save this information for next time</label>
                             </div>
-                            <hr className="my-4" />
-                            <h4 className="mb-3">Payment</h4>
-                            <div className="d-flex gap-3 my-3">
+                            {/* <hr className="my-4" />
+                            <h4 className="mb-3">Payment</h4> */}
+                            {/* <div className="d-flex gap-3 my-3">
                                 <div className="form-check">
                                     <input id="credit" name="paymentMethod" type="radio" className="form-check-input" checked="" required="" onChange={handleChange} />
                                     <label className="form-check-label" htmlFor="credit">Credit card</label>
@@ -170,8 +170,8 @@ const CheckOut = () => {
                                     <input id="cod" name="paymentMethod" type="radio" className="form-check-input" required="" onChange={handleChange} />
                                     <label className="form-check-label" htmlFor="paypal">COD</label>
                                 </div>
-                            </div>
-                            <div className="row gy-3">
+                            </div> */}
+                            {/* <div className="row gy-3">
                                 <div className="col-md-6">
                                     <label htmlFor="cc-name" className="form-label">Name on card</label>
                                     <input type="text" className="form-control" id="cc-name" name="ccName"
@@ -203,7 +203,7 @@ const CheckOut = () => {
                                         Security code required
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <hr className="my-4" />
 
                             <button className="w-100 btn btn-success btn-lg mt-3 " type="submit" onClick={makePayment}>Continue to Pay</button>

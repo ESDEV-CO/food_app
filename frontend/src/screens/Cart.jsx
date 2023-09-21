@@ -29,11 +29,12 @@ const Cart = () => {
             body: JSON.stringify({
                 order_data: data,
                 email: userEmail,
+                total_price: totalPrice,
                 order_date: new Date().toDateString()
             })
         });
-        console.log("JSON RESPONSE:::::", response.status)
-        console.log("JSON  Data:::::", response)
+        // console.log("JSON RESPONSE:::::", response.status)
+        // console.log("JSON  Data:::::", response)
         if (response.status === 200) {
             dispatch({ type: "DROP" })
             navigate('/checkout')
