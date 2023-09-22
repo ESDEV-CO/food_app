@@ -11,6 +11,7 @@ import MyOrder from './screens/MyOrder';
 import CheckOut from './screens/CheckOut';
 import Success from './components/Success';
 import Cancel from './components/Cancel';
+import AdminPortal from './screens/AdminPortal';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/checkout" element={<CheckOut />} />
           <Route path="/success" element={<Success />} />
           <Route path="/cancel" element={<Cancel />} />
+          <Route path="/admin" element={<AdminPortal />} />
         </Routes>
       </Router>
     </CartProvider>
