@@ -14,6 +14,32 @@ router.get("/foodData", async (req, res) => {
     }
 });
 
+// Create a new endpoint to handle the data sent from the frontend
+router.post("/handleFoodData", async (req, res) => {
+    try {
+        // You can access the data sent from the frontend in req.body
+        const requestData = req.body;
+        console.log(requestData);
+
+        // Perform any necessary actions with the data
+        // For example, you can save it to your MongoDB using Mongoose
+        const newFoodItem = new food_items({
+            CategoryName: requestData.category,
+            name: requestData.productName,
+            img: requestData.url,
+            options: requestData.options,
+            description: requestData.description,
+        });
+
+        await newFoodItem.save();
+
+        res.json({ message: 'Data saved successfully' });
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+});
+
 router.post("/category", async (req, res) => {
     try {
         const { CategoryName } = req.body; // Extract the "CategoryName" from the request body

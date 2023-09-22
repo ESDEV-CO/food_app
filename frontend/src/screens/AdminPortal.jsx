@@ -1,24 +1,58 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminPortal = () => {
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        address: '',
-        country: '',
-        state: '',
-        zip: '',
-        paymentMethod: 'credit',
+        productName: '',
+        url: '',
+        description: '',
+        category: '',
+        options: [],
+        price: '',
     });
-    console.log(formData);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-    }
+        try {
+            const response = await axios.post('http://localhost:5000/api/handleFoodData', formData);
+
+            if (response.status === 200) {
+                // Handle a successful response from the server
+                toast.success(' Data Send Successfully!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                // Optionally, reset the form fields here
+                setFormData({
+                    productName: '',
+                    url: '',
+                    description: '',
+                    category: '',
+                    options: [],
+                    price: '',
+                });
+            } else {
+                // Handle errors from the server
+                console.error('Failed to send data to the server');
+            }
+        } catch (error) {
+            // Handle network errors or other exceptions
+            console.error('Error:', error);
+        }
+    };
+
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -37,27 +71,29 @@ const AdminPortal = () => {
                         <form onSubmit={handleSubmit} className="needs-validation was-validated" novalidate="">
                             <div className="row g-3">
                                 <div className="col-12">
-                                    <label htmlFor="lastName" className="form-label">Product Name</label>
-                                    <input type="text" className="form-control" id="lastName" name="lastName" placeholder="Food Name" value={formData.lastName} onChange={handleChange} required />
+                                    <label htmlFor="productName" className="form-label">Product Name</label>
+                                    <input type="text" className="form-control" id="productName" name="productName" placeholder="Food Name" value={formData.productName} onChange={handleChange} required />
                                     <div className="invalid-feedback">
-                                        Valid name is required                                   </div>
+                                        Valid name is required
+                                    </div>
                                 </div>
                                 <div className="col-12">
-                                    <label htmlFor="lastName" className="form-label">Image URl</label>
-                                    <input type="text" className="form-control" id="lastName" name="lastName" placeholder="HTTPS://" value={formData.lastName} onChange={handleChange} required />
+                                    <label htmlFor="url" className="form-label">Image URl</label>
+                                    <input type="text" className="form-control" id="url" name="url" placeholder="HTTPS://" value={formData.url} onChange={handleChange} required />
                                     <div className="invalid-feedback">
-                                        Valid Image URl is required                                   </div>
+                                        Valid Image URl is required
+                                    </div>
                                 </div>
                                 <div className="col-12">
-                                    <label htmlFor="address" className="form-label">Description</label>
-                                    <input type="text" className="form-control" id="address" name="address" placeholder="1234 Main St" value={formData.address} onChange={handleChange} required />
+                                    <label htmlFor="description" className="form-label">Description</label>
+                                    <input type="text" className="form-control" id="description" name="description" placeholder="1234 Main St" value={formData.description} onChange={handleChange} required />
                                     <div className="invalid-feedback">
                                         Please enter your Product Description.
                                     </div>
                                 </div>
                                 <div className="col-md-5">
-                                    <label htmlFor="country" className="form-label">Category Name</label>
-                                    <select className="form-select" id="country" name="country" value={formData.country} onChange={handleChange} required >
+                                    <label htmlFor="category" className="form-label">Category Name</label>
+                                    <select className="form-select" id="category" name="category" value={formData.category} onChange={handleChange} required >
                                         <option value="">Choose...</option>
                                         <option>Biryani/Rice</option>
                                         <option>Starter</option>
@@ -68,8 +104,8 @@ const AdminPortal = () => {
                                     </div>
                                 </div>
                                 <div className="col-md-4">
-                                    <label htmlFor="state" className="form-label">Options</label>
-                                    <select className="form-select" id="state" name="state" value={formData.state} onChange={handleChange} required>
+                                    <label htmlFor="options" className="form-label">Options</label>
+                                    <select className="form-select" id="options" name="options" value={formData.options} onChange={handleChange} required>
                                         <option value="">Choose...</option>
                                         <option>Half</option>
                                         <option>Full</option>
@@ -82,10 +118,10 @@ const AdminPortal = () => {
                                     </div>
                                 </div>
                                 <div className="col-md-3">
-                                    <label htmlFor="zip" className="form-label">Price</label>
-                                    <input type="text" className="form-control" id="zip" name="zip"
+                                    <label htmlFor="price" className="form-label">Price</label>
+                                    <input type="text" className="form-control" id="price" name="price"
                                         placeholder="Rs"
-                                        value={formData.zip}
+                                        value={formData.price}
                                         onChange={handleChange} required />
                                     <div className="invalid-feedback">
                                         Price required
@@ -105,6 +141,7 @@ const AdminPortal = () => {
                 </div>
             </div>
             <Footer />
+            <ToastContainer />
         </div>
     )
 }
